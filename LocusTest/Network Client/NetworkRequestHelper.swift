@@ -11,7 +11,7 @@ import Alamofire
 struct NetworkHelper {
    
     // We can configure environments here
-    static var baseUrl : String { 
+    static var baseUrl : String {
         get {
             return "https://api.openweathermap.org";
         }

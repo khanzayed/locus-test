@@ -17,7 +17,6 @@ class ForecastListViewController: UIViewController, MainStoryboarded {
     @IBOutlet weak var lblWind: UILabel!
     @IBOutlet weak var imageViewWeather: UIImageView!
     
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     
     private var viewModel: ForecastListViewControllerVM!
@@ -29,7 +28,9 @@ class ForecastListViewController: UIViewController, MainStoryboarded {
     }
     
     private func setupUI() {
-        lblCity.text = "London"
+        self.title = "Hourly Forecast"
+        
+        lblCity.text = viewModel.city
         lblTemp.text = viewModel.temp
         lblWeather.text = viewModel.weather
         
@@ -52,6 +53,10 @@ class ForecastListViewController: UIViewController, MainStoryboarded {
         }
     }
     
+    deinit {
+        print("Deinit called \(String(describing: ForecastListViewController.self))")
+    }
+    
     static func initializeController(forecast: Forecast) -> ForecastListViewController {
         let viewController = ForecastListViewController.instantiate()
         viewController.viewModel = ForecastListViewControllerVM(forecast: forecast)
@@ -64,7 +69,7 @@ class ForecastListViewController: UIViewController, MainStoryboarded {
 extension ForecastListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.forecast.hourly.count
+        return viewModel.forecast.hourly?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -73,7 +78,7 @@ extension ForecastListViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastTableViewCell") as! ForecastTableViewCell
-        cell.viewModel = ForecastTableViewCellVM(forcastData: viewModel.forecast.hourly[indexPath.row])
+        cell.viewModel = ForecastTableViewCellVM(forcastData: viewModel.forecast.hourly![indexPath.row])
         
         return cell
     }
@@ -81,7 +86,10 @@ extension ForecastListViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        // Push to details view controller
+        let viewController = ForecastDetailsViewController.initializeController(forecastData: viewModel.forecast.hourly![indexPath.row])
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
 }

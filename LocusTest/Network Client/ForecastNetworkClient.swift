@@ -11,7 +11,7 @@ import Alamofire
 struct ForecastNetworkClient {
     
     func getGeographicalCoordinates(_ cityName: String, completion: @escaping (GeocodingResponse?, AFError?) -> Void) {
-        let url = NetworkHelper.baseUrl + "/data/2.5/weather?q=\(cityName)&appid=\(NetworkHelper.appId)"
+        let url = NetworkHelper.baseUrl + "/data/2.5/weather?q=\(cityName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&appid=\(NetworkHelper.appId)"
         
         let request = AF.request(url)
         request.responseDecodable(of: GeocodingResponse.self) { (response) in

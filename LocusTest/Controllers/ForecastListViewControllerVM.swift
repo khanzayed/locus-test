@@ -12,27 +12,33 @@ class ForecastListViewControllerVM {
     
     var forecast: Forecast!
     
+    var city: String {
+        get {
+            return cityName
+        }
+    }
+    
     var temp: String {
         get {
-            return forecast.current.temp.displayCelciusWithUnit
+            return forecast.current?.temp.displayCelciusWithUnit ?? ""
         }
     }
 
     var weather: String {
         get {
-            return "\(forecast.current.weather[0].main)"
+            return "\(forecast.current?.weather[0].main ?? "")"
         }
     }
     
     var weatherImageName: String? {
         get {
-            return forecast.current.weather[0].icon
+            return forecast.current?.weather[0].icon
         }
     }
     
     var humidity: String {
         get {
-            if let value = forecast.current.humidity {
+            if let value = forecast.current?.humidity {
                 return "\(value) %"
             }
             
@@ -42,7 +48,7 @@ class ForecastListViewControllerVM {
     
     var pressure: String {
         get {
-            if let value = forecast.current.pressure {
+            if let value = forecast.current?.pressure {
                 return "\(value) hPA"
             }
             
@@ -52,7 +58,7 @@ class ForecastListViewControllerVM {
     
     var windSpeed: String {
         get {
-            if let value = forecast.current.windSpeed {
+            if let value = forecast.current?.windSpeed {
                 return "\(value) m/s"
             }
             

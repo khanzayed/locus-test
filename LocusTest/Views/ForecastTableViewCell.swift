@@ -17,6 +17,13 @@ class ForecastTableViewCell: UITableViewCell {
                 self.lblDate.text = self.viewModel.dateString
                 self.lblWeather.text = self.viewModel.weather
                 self.lblTemperature.text = self.viewModel.temp
+                self.imageViewWeather.image = nil
+            }
+            
+            self.viewModel.downloadImage { [weak self] data in
+                DispatchQueue.main.async {
+                    self?.imageViewWeather.image = (data != nil) ? UIImage(data: data!) : nil
+                }
             }
         }
     }
@@ -24,5 +31,6 @@ class ForecastTableViewCell: UITableViewCell {
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblWeather: UILabel!
     @IBOutlet weak var lblTemperature: UILabel!
+    @IBOutlet weak var imageViewWeather: UIImageView!
     
 }

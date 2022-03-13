@@ -10,5 +10,6 @@ import Foundation
 struct GeocodingResponse: Codable {
     
     let coord: GeoCoordinates
+    let name: String
     
 }
