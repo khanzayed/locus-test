@@ -124,6 +124,22 @@ extension CityViewController: UITableViewDataSource, UITableViewDelegate {
         return viewModel.searchedCities.count
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        view.backgroundColor = .white
+        
+        let label = UILabel(frame: CGRect(x: 20, y: 0, width: UIScreen.main.bounds.width - 40, height: 50))
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.text = "Recent searches"
+        
+        view.addSubview(label)
+        return view;
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "SearchedCityCell")
         if (cell == nil) {

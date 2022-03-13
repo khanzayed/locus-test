@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X8M-Fw-ZrE">
-                                <rect key="frame" x="0.0" y="88" width="414" height="90"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="80"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tmE-zl-7aD">
                                         <rect key="frame" x="20" y="43.5" width="200" height="1"/>
@@ -64,13 +64,13 @@
                                     <constraint firstItem="tmE-zl-7aD" firstAttribute="top" secondItem="Lwb-YT-gSH" secondAttribute="bottom" constant="5" id="UBR-su-j5M"/>
                                     <constraint firstItem="1EO-AO-VP4" firstAttribute="leading" secondItem="X8M-Fw-ZrE" secondAttribute="leading" constant="20" id="bCP-D2-OIi"/>
                                     <constraint firstItem="mIe-cg-NWY" firstAttribute="top" secondItem="X8M-Fw-ZrE" secondAttribute="top" constant="20" id="d4g-vb-FZW"/>
-                                    <constraint firstAttribute="height" constant="90" id="hJz-7J-FCE"/>
+                                    <constraint firstAttribute="height" constant="80" id="hJz-7J-FCE"/>
                                     <constraint firstItem="mIe-cg-NWY" firstAttribute="leading" secondItem="Lwb-YT-gSH" secondAttribute="trailing" constant="10" id="ncf-ma-W9F"/>
                                     <constraint firstAttribute="trailing" secondItem="1EO-AO-VP4" secondAttribute="trailing" constant="40" id="z3o-fw-5dS"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Tel-gJ-dMZ">
-                                <rect key="frame" x="0.0" y="178" width="414" height="684"/>
+                                <rect key="frame" x="0.0" y="168" width="414" height="694"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="oBz-46-edG"/>
