@@ -59,19 +59,26 @@ class CityViewControllerVM {
         forecastClient.getGeographicalCoordinates(searchedText) { [weak self] (data, error) in
             guard let this = self else { return }
             
-            if let data = data {
+            guard let data = data  else {
+                this.forecast = nil
+                this.delegate.didFailedToLoadForecastData(message: "Failed to fetch city coordinates details.")
+                
+                return
+            }
+            
+            if let _ = data.coord {
                 this.saveSearchedCity(response: data)
                 this.fetchWeatherForecastFromCoordinates(data: data)
             } else {
                 this.forecast = nil
-                this.delegate.didFailedToLoadForecastData(message: "Failed to fetch city coordinates details.")
+                this.delegate.didFailedToLoadForecastData(message: data.message ?? "Failed to fetch city coordinates details.")
             }
         }
     }
     
     func fetchWeatherForecastFromCoordinates(data: GeocodingResponse) {
-        cityName = data.name
-        self.forecastClient.getHourlyForecastForCity(data.coord.lat, lon: data.coord.lon, completion: { [weak self] (forecast, error) in
+        cityName = data.name!
+        self.forecastClient.getHourlyForecastForCity(data.coord!.lat, lon: data.coord!.lon, completion: { [weak self] (forecast, error) in
             guard let this = self else { return }
             
             if let _ = error {
