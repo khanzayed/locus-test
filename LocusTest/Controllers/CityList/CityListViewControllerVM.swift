@@ -1,25 +1,28 @@
 //
-//  CityViewControllerVM.swift
+//  CitySearchListViewControllerVM.swift
 //  LocusTest
 //
-//  Created by Faraz Habib on 11/3/2022.
+//  Created by Faraz Habib on 3/5/2023.
 //
 
 import Foundation
 
-protocol CityViewControllerVMDelegate {
+protocol CityListWeatherDelegate {
     
     func didLoadForecastData()
     func didFailedToLoadForecastData(message: String)
     
 }
 
-class CityViewControllerVM {
+protocol CityListViewModel {
     
-    var forecastClient: ForecastNetworkClient!
-    var delegate: CityViewControllerVMDelegate!
-    
-    var forecast: Forecast?
+    var searchedCities: [GeocodingResponse] { get }
+    var forecast: Forecast? { get }
+    func getForecastData(searchedText: String)
+}
+
+
+class CityListViewControllerVM: CityListViewModel {
     
     var searchedCities: [GeocodingResponse] {
         get {
@@ -27,12 +30,17 @@ class CityViewControllerVM {
                 let list = try? JSONDecoder().decode([GeocodingResponse].self, from: data)
                 return list ?? []
             }
-            
+
             return []
         }
     }
     
-    init(forecastClient: ForecastNetworkClient, delegate: CityViewControllerVMDelegate) {
+    var forecastClient: ForecastNetworkClient!
+    var delegate: CityListWeatherDelegate!
+    
+    var forecast: Forecast?
+    
+    init(forecastClient: ForecastNetworkClient, delegate: CityListWeatherDelegate) {
         self.forecastClient = forecastClient
         self.delegate = delegate
     }

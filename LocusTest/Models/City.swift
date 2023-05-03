@@ -6,14 +6,28 @@
 //
 
 import Foundation
+import MapKit
 
-struct City: Codable {
+struct City {
+
+    let name: String?
+    let state: String?
+    let country: String?
+    let location: CLLocation?
+
+}
+
+extension City {
     
-    let id: Int64
-    let name: String
-    let coord: GeoCoordinates
-    let country: String
-    let sunrise: TimeInterval
-    let sunset: TimeInterval
+    func getAddress() -> String? {
+        var address = state ?? ""
+        if address.isEmpty {
+            address = country ?? ""
+        } else if let country {
+            address += ", " + country
+        }
+        
+        return address
+    }
     
 }
